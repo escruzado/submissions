@@ -32,7 +32,7 @@ class _SubmissionDetailScreenState
       ref
           .read(submissionsProvider.notifier)
           .markAsReviewed(id, Status.reviewed);
-      Navigator.pop(context);
+      Navigator.of(context).pop();
     }
   }
 
@@ -43,7 +43,6 @@ class _SubmissionDetailScreenState
     final colorScheme = theme.colorScheme;
 
     final Submission sub = widget.data.data;
-    print(sub);
 
     return Scaffold(
       appBar: AppBar(title: Text('Submission Summary')),

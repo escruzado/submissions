@@ -14,7 +14,7 @@ class SubmissionRow extends StatefulWidget {
 }
 
 class _SubmissionRowState extends State<SubmissionRow> {
-  _navigateDetailsScreen() {
+  void _navigateDetailsScreen() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => SubmissionDetailScreen(data: widget.item),

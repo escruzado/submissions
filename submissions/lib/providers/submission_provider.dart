@@ -6,6 +6,8 @@ import 'package:submissions/models/submission.dart';
 import 'package:submissions/models/table_item.dart';
 
 class SubmissionsNotifier extends Notifier<List<TableItem>> {
+  List<TableItem> _allItems = [];
+  String _query = '';
   @override
   List<TableItem> build() {
     _loadSubmissions();
@@ -19,29 +21,56 @@ class SubmissionsNotifier extends Notifier<List<TableItem>> {
 
     final data = jsonDecode(response) as List<dynamic>;
 
-    state = data
+    _allItems = data
         .map(
           (e) =>
               TableItem(data: Submission.fromJson(e as Map<String, dynamic>)),
         )
         .toList();
+
+    state = _allItems;
+  }
+
+  void updateQuery(String query) {
+    _query = query;
+    if (query.isEmpty) {
+      state = _allItems;
+    }
+  }
+
+  void search() {
+    if (_query.isEmpty) {
+      state = _allItems;
+      return;
+    }
+
+    final q = _query.toLowerCase().trim();
+
+    state = _allItems.where((item) {
+      final sub = item.data;
+      return (sub.name?.toLowerCase().contains(q) ?? false) ||
+          (sub.email?.toLowerCase().contains(q) ?? false) ||
+          (sub.phone?.toLowerCase().contains(q) ?? false) ||
+          sub.status.name.toLowerCase().contains(q) ||
+          sub.service.name.toLowerCase().contains(q);
+    }).toList();
   }
 
   void markAsReviewed(String id, Status newStatus) {
-    state = [
+    final updated = [
       for (final item in state)
         if (item.data.id == id)
           item.copyWith(data: item.data.copyWith(status: newStatus))
         else
           item,
     ];
-  }
 
-  void toggleExpand(String id) {
-    state = [
-      for (final item in state)
+    state = updated;
+
+    _allItems = [
+      for (final item in _allItems)
         if (item.data.id == id)
-          item.copyWith(isExpanded: !item.isExpanded)
+          item.copyWith(data: item.data.copyWith(status: newStatus))
         else
           item,
     ];
