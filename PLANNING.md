@@ -103,7 +103,9 @@ The app follows a defined data model. Constraints and business rules can be adju
 - Framework:Flutter 3.41.9 with Dart 3.11.5
 - State Management: Flutter Riverpod 3.3.2
 - Packages:
-    - Google Font
+    - google_fonts
+    - uuid
+    - intl
 
 
 ### Data model / data handling

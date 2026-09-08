@@ -19,7 +19,7 @@ Submissions is a frontend-only Flutter application that displays, filters, and m
 
 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/escruzado/submissions.git
 cd submissions
 ```
 
@@ -35,23 +35,23 @@ flutter run
 
 4. To run on a specific device
 ```bash
-flutter devices          # list available devices
-flutter run -d <device>  # run on specific device
+flutter devices          
+flutter run -d <device>  
 ```
 
 ---
+
 
 ## Stack and Versions
 
 | Tool / Library | Version |
 |---|---|
-| Flutter | 3.x (stable) |
-| Dart | 3.x |
-| flutter_riverpod | ^2.6.1 |
-| google_fonts | ^6.2.1 |
-| intl | ^0.19.0 |
-| uuid | ^4.5.1 |
-| Material Design | Material 3 |
+| Flutter | 3.41.9 |
+| Dart | 3.11.5 |
+| flutter_riverpod | ^3.3.2 |
+| google_fonts | ^8.2.1 |
+| intl | ^0.20.3 |
+| uuid | ^4.6.0 |
 | Min Android SDK | 21 (Android 5.0) |
 | Target Android SDK | 34 (Android 14) |
 
@@ -70,10 +70,26 @@ flutter run -d <device>  # run on specific device
 
 ---
 
+## Known Limitations and What I Would Do With More Time
+
+**Known limitations:**
+- Search is triggered on button press only. No real-time filtering as you type.
+- No pagination or lazy loading. This will not scale well with large datasets.
+- Inconsistent colors caused by inaccurate monitor was only realized after running the appication on a separate device.
+- Filter is limited to a single search query. Sorting and multi-field filtering was not implemented.
+- No snackbars implemented to indicate successful operations.
+
+**With more time I would:**
+- implement real time search as the user types
+- add more filter features to allow multi-criteria filtering 
+- write unit tests 
+- improve colors, animations, and transitions
+
 ## AI Tools Used
 
-**Tools used:** Claude && Microsoft Copilot
+**Tools used:** Claude & Microsoft Copilot
 - Assisted with boilerplate code generation for models, copyWith, extensions, and fromJson
+- Used as a search engine
 - Suggested the keyword list approach for status normalization
 - Review and debug code structure
 
@@ -81,8 +97,10 @@ flutter run -d <device>  # run on specific device
 - all generated code was reviewed and understood before being used.
 - tests were made using temporary functions with values outputted in the terminal
 
+---
+
 ## What I Would Like the Reviewer to Focus On
-- Data normalization
-- Data visualizaton
-- Separation of concern
-- UI decisions
+- **Data normalization**        - how messy data are handled in production code
+- **Data visualizaton**         - how to gauge which parts of the data should be visible to its user, and how to properly express this through UI design
+- **Separation of concern and project planning**     - how to properly structure your files and how to easily plan for the project you are about to do.
+- **UI decisions**              - proper conventions, design rule of thumbs. 
