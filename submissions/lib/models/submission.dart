@@ -29,6 +29,11 @@ class Submission {
   final String? formVersion;
   final String? internalNotes;
 
+  @override
+  String toString() {
+    return 'Submission(id: $id, name: $name, status: $status, service: $service, email: $email, phone: $phone, submittedAt: $submittedAt)';
+  }
+
   Submission copyWith({
     String? id,
     String? name,
