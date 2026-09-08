@@ -7,6 +7,7 @@ import 'package:submissions/providers/submission_provider.dart';
 import 'package:submissions/ui/widgets/confirmation_modal.dart';
 import 'package:submissions/ui/widgets/submission_detail_screen/review_button.dart';
 import 'package:submissions/ui/widgets/submission_screen/status_pill.dart';
+import 'package:submissions/utils/string_extension.dart';
 
 class SubmissionDetailScreen extends ConsumerStatefulWidget {
   const SubmissionDetailScreen({required this.data, super.key});
@@ -53,7 +54,9 @@ class _SubmissionDetailScreenState
           children: [
             Text('Sender:', style: textTheme.bodyMedium),
             Text(
-              sub.name == null || sub.name == '' ? 'No name' : sub.name!,
+              sub.name == null || sub.name == ''
+                  ? 'No Name'
+                  : sub.name!.toPascalCase(),
               style: textTheme.titleLarge,
             ),
             Text(
@@ -98,7 +101,10 @@ class _SubmissionDetailScreenState
               children: [
                 Text('Service:', style: textTheme.bodyMedium),
                 const SizedBox(width: 16),
-                Text(sub.service.name, style: textTheme.bodyMedium),
+                Text(
+                  sub.service.name.toPascalCase(),
+                  style: textTheme.bodyMedium,
+                ),
               ],
             ),
             const SizedBox(height: 8.0),

@@ -3,6 +3,7 @@ import 'package:submissions/models/submission.dart';
 import 'package:submissions/models/table_item.dart';
 import 'package:submissions/ui/screens/submission_detail_screen.dart';
 import 'package:submissions/ui/widgets/submission_screen/status_pill.dart';
+import 'package:submissions/utils/string_extension.dart';
 
 class SubmissionRow extends StatefulWidget {
   const SubmissionRow({required this.item, super.key});
@@ -72,8 +73,8 @@ class _SubmissionRowState extends State<SubmissionRow> {
                           width: constraints.maxWidth * 0.30,
                           child: Text(
                             sub.name == null || sub.name == ''
-                                ? 'No name'
-                                : sub.name!,
+                                ? 'No Name'
+                                : sub.name!.toPascalCase(),
                             overflow: TextOverflow.ellipsis,
                             style: textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.bold,
@@ -86,7 +87,7 @@ class _SubmissionRowState extends State<SubmissionRow> {
                         SizedBox(
                           width: constraints.maxWidth * 0.15,
                           child: Text(
-                            sub.service.name,
+                            sub.service.name.toPascalCase(),
                             overflow: TextOverflow.ellipsis,
                             style: textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.bold,
