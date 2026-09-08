@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:submissions/models/submission.dart';
 import 'package:submissions/models/table_item.dart';
+import 'package:submissions/ui/screens/submission_detail_screen.dart';
 import 'package:submissions/ui/widgets/submission_screen/status_pill.dart';
 
 class SubmissionRow extends StatefulWidget {
@@ -13,6 +14,14 @@ class SubmissionRow extends StatefulWidget {
 }
 
 class _SubmissionRowState extends State<SubmissionRow> {
+  _navigateDetailsScreen() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => SubmissionDetailScreen(data: widget.item),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -52,7 +61,9 @@ class _SubmissionRowState extends State<SubmissionRow> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      _navigateDetailsScreen();
+                    },
                     title: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
