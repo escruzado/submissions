@@ -4,8 +4,7 @@
 
 ### Submission List View
 - a table-like list view of all the submissions with each row showing the most relevant information.
-- each rows can be tapped to expand it to show more information
-- the expanded row will have a button to show a more detailed view.
+- each rows can be tapped to expand to show a more detailed view through a separate screen.
 
 ### Status Filter / Search
 - group of components near the application bar containing a search bar and various drop downs and buttons to facilitate filtering and searching
@@ -32,12 +31,36 @@ After planning, the focus for the implementation will be the normalization of th
 <!-- What could go wrong?
 What should be tested? -->
 
+Search functionalities are always complex and specific edge cases or user interaction may break the list of results. 
+
 ---
 
 ## 2. User Stories
 
 Write 2 to 4 user stories. Format:
-- As a <type of user>, I want to <action>, so that <benefit>.
+<!-- - As a <type of user>, I want to <action>, so that <benefit>. -->
+
+- As an admin, I want to view a list of all form submissions, so I can manage things at a glance.
+
+Acceptable Criteria:
+    - all submissions from the source are displayed in a scrollable list
+    - each row shows the submitter's name, status, and service type
+    - missing and malformed information are normalized and falls back to default values
+
+As an admin, I want to search for specific keywords to narrow down the list of submission
+
+Acceptable Criteria
+    - a search bar allows filtering by name, email, phone, status, or service
+    - results update when the search is confirmed
+    - clearing the search restores the full list
+    - search is case-insensitive
+
+As an admin, I want to view the full details of a submission, so that I can review all relevant information before taking action
+
+Acceptable Criteria
+    - tapping a row navigates to a details screen
+    - all relevant fields are displayed 
+    - tapping a button marks the submission as complete
 
 For each user story, include 2 to 4 acceptance criteria.
 
@@ -47,7 +70,7 @@ For each user story, include 2 to 4 acceptance criteria.
 
 ### Functional requirements
 
-Create an application containing an admin tables-like component that shows a table of submissions, containing important information at a glance. Users can search for specific data, sort, and filter results. Additionally, these rows can be expanded once tapped. Furthermore, users can also open a separate screen for each submissions. Lastly, submissions can be marked as "reviewed" with a button click, changing its status accordingly. 
+Create an application containing an admin tables-like component that shows a table of submissions, containing important information at a glance. Users can search for specific data, sort, and filter results. Furthermore, users can also open a separate screen for each submissions. Lastly, submissions can be marked as "reviewed" with a button click, changing its status accordingly. 
 
 ### Non-functional requirements
 <!-- Usability, performance, accessibility, maintainability,
@@ -88,7 +111,7 @@ The app follows a defined data model. Constraints and business rules can be adju
 inconsistent, or malformed records (normalization, defaults, validation). -->
 ```plaintext
 enum Status {
-    new,                    - catches strings that contain "new"
+    newSubmission,                    - catches strings that contain "new"
     open,                   - catches strings that contain "open"
     processing,             - catches strings that contain "in" && "review", "pending", empty, and other strings
     reviewed,               - catches strings that contain "reviewed", "finish"
@@ -101,11 +124,12 @@ enum Service {
     other                   - default value, catches all other string or empty values
 }
 
-UniqueId
-    String value            - accepts both String and int uid input and stringify
+TableItem:                  - artifact of an unimplemented feature. contains a submission object
+    Submission data
+    bool isExpanded
 
 Submissions:
-    UniqueId? id        
+    String? id              - accepts both String and int values
     String? name
     String? email
     String? phone
@@ -114,6 +138,7 @@ Submissions:
     String? message
     DateTime? submittedAt   - format: "dd MMMM yyyy"
     String? formVersion
+    String? internalNotes
 
 ```
 ### Architecture / components / modules
@@ -124,6 +149,7 @@ lib/
   ├── data/                 - submissions data
   ├── models/               - data classes
   ├── providers/            - Riverpod providers and notifiers
+  ├── utils/                - external and helper functions
   └── ui/                   - screens and widgets
 ```
 
@@ -187,8 +213,9 @@ Reviewed State
 
 #### What did you intentionally skip?
 - most accessibility suggestions as the development time can balloon when taking these into suggestion. 
+- search filter due to time constraints
 #### What would you improve with more time?
-- UX
+- UX and accessibility
 
 #### What would you ask the client before building this for production?
 - what's your expected development time frame and budget?
@@ -197,14 +224,16 @@ Reviewed State
 - Do you need create, update, and delete functionalities for this app?
 
 #### If you used AI tools, how did you use them and how did you validate output?
-- Copilot and Claude are used during the implementation. These tools are used for basic searching,debugging, template generation, and automation of repetitive tasks. Outputs are validated through testing and browsing source documentation. 
+- Copilot and Claude are used during the implementation. These tools are used for basic searching, debugging, template generation, and automation of repetitive tasks. Outputs are validated through testing and browsing source documentation. 
+
+- external functions like the String toPascalCase due to time constraints
 
 ---
 
 ## 8. Iterations
-
-| Change | Reason |
-|---|---|
-|  |  |
-
-If there were no major changes, write: N/A, no major plan changes.
+```plaintext
+| Change                                        | Reason                                              |
+| Enclose Submission Model in Table Item Model  | To make UI manipulation for the expanding row easier|
+| Give up on the expandable row                 | Unnecessary, not enough time                        |
+```
+<!-- If there were no major changes, write: N/A, no major plan changes. -->
