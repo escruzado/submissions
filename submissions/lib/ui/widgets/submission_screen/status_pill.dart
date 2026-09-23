@@ -10,7 +10,7 @@ class StatusPill extends StatelessWidget {
       Status.newSubmission => colorScheme.primary,
       Status.open => Colors.lightBlueAccent,
       Status.processing => Colors.orange,
-      Status.reviewed => Colors.purple,
+      Status.reviewed => colorScheme.primary,
       Status.closed => colorScheme.error,
     };
   }
