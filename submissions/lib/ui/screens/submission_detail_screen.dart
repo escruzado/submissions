@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:submissions/models/submission.dart';
-import 'package:submissions/models/table_item.dart';
 import 'package:submissions/providers/submission_provider.dart';
 import 'package:submissions/ui/widgets/confirmation_modal.dart';
 import 'package:submissions/ui/widgets/submission_detail_screen/review_button.dart';
@@ -11,7 +10,7 @@ import 'package:submissions/utils/string_extension.dart';
 
 class SubmissionDetailScreen extends ConsumerStatefulWidget {
   const SubmissionDetailScreen({required this.data, super.key});
-  final TableItem data;
+  final Submission data;
 
   @override
   ConsumerState<SubmissionDetailScreen> createState() =>
@@ -43,7 +42,7 @@ class _SubmissionDetailScreenState
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    final Submission sub = widget.data.data;
+    final Submission sub = widget.data;
 
     return Scaffold(
       appBar: AppBar(title: Text('Submission Summary')),

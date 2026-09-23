@@ -126,10 +126,6 @@ enum Service {
     other                   - default value, catches all other string or empty values
 }
 
-TableItem:                  - artifact of an unimplemented feature. contains a submission object
-    Submission data
-    bool isExpanded
-
 Submissions:
     String? id              - accepts both String and int values
     String? name

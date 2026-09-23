@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:submissions/models/submission.dart';
-import 'package:submissions/models/table_item.dart';
 import 'package:submissions/ui/screens/submission_detail_screen.dart';
 import 'package:submissions/ui/widgets/submission_screen/status_pill.dart';
 import 'package:submissions/utils/string_extension.dart';
@@ -8,7 +7,7 @@ import 'package:submissions/utils/string_extension.dart';
 class SubmissionRow extends StatefulWidget {
   const SubmissionRow({required this.item, super.key});
 
-  final TableItem item;
+  final Submission item;
 
   @override
   State<SubmissionRow> createState() => _SubmissionRowState();
@@ -29,7 +28,7 @@ class _SubmissionRowState extends State<SubmissionRow> {
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
 
-    final Submission sub = widget.item.data;
+    final Submission sub = widget.item;
 
     return LayoutBuilder(
       builder: (ctx, constraints) {
