@@ -53,17 +53,12 @@ class SubmissionsNotifier extends Notifier<List<Submission>> {
   }
 
   void markAsReviewed(String id, Status newStatus) {
-    final updated = [
-      for (final item in state)
-        if (item.id == id) item.copyWith(status: newStatus) else item,
-    ];
-
-    state = updated;
-
     _allItems = [
       for (final item in _allItems)
         if (item.id == id) item.copyWith(status: newStatus) else item,
     ];
+
+    state = _allItems;
   }
 }
 
