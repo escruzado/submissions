@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:submissions/models/submission.dart';
 import 'package:submissions/providers/submission_provider.dart';
 import 'package:submissions/ui/widgets/confirmation_modal.dart';
+import 'package:submissions/ui/widgets/custom_snackbar.dart';
 import 'package:submissions/ui/widgets/submission_detail_screen/review_button.dart';
 import 'package:submissions/ui/widgets/submission_screen/status_pill.dart';
 import 'package:submissions/utils/string_extension.dart';
@@ -32,6 +33,11 @@ class _SubmissionDetailScreenState
       ref
           .read(submissionsProvider.notifier)
           .markAsReviewed(id, Status.reviewed);
+      if (!context.mounted) return;
+      showSnackbar(
+        context,
+        'Marked ${widget.data.name!.isNotEmpty ? widget.data.name!.split(' ')[0].toPascalCase() : 'No Name'}\'s',
+      );
       Navigator.of(context).pop();
     }
   }
